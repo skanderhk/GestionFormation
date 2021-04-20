@@ -1,6 +1,7 @@
 package com.ipsas.GestionDeFormations.Services;
 
 import com.ipsas.GestionDeFormations.Exceptions.StudentNotFoundException;
+import com.ipsas.GestionDeFormations.Models.Groupe;
 import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,17 @@ public class StudentService {
     }
 
     public Student addStudent(Student E){
-        E.setStudentCode(UUID.randomUUID().toString());
+        E.setUserCode(UUID.randomUUID().toString());
         return studentRepo.save(E);
     }
 
-    public List<Student> addStudents(List<Student> userList){
-        for (Student user : userList)
-        {
-            user.setStudentCode(UUID.randomUUID().toString());
-        }
-        return studentRepo.saveAll(userList);
+    public Student joinGroupe(Student E,Groupe g){
+        E.setGroupe(g);
+        return studentRepo.save(E);
+    }
+
+    public List<Student> addStudents(List<Student> studentList){
+        return studentRepo.saveAll(studentList);
     }
 
     public List<Student> findAll(){

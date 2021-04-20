@@ -3,24 +3,25 @@ package com.ipsas.GestionDeFormations.Models;
 import com.ipsas.GestionDeFormations.Enums.Role;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue("student")
-public class Student extends User {
+public class Student extends User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
     private Groupe groupe;
-    @OneToMany
-    private List<Note> listNote;
+    /*@OneToMany
+    private List<Note> listNote;*/
 
     public Student() {
 
     }
 
-    public Student(String firstname, String lastname, String username, String password, String email, String profileImageUrl, Role role) {
+    public Student(String firstname, String lastname, String username, String password, String email, String profileImageUrl) {
         super(firstname, lastname, username, password, email, profileImageUrl, Role.STUDENT);
     }
 
@@ -42,13 +43,13 @@ public class Student extends User {
         this.groupe = groupe;
     }
 
-    public List<Note> getListNote() {
+    /*public List<Note> getListNote() {
         return listNote;
     }
 
     public void setListNote(List<Note> listNote) {
         this.listNote = listNote;
-    }
+    }*/
 
     public void setStudentCode(String userCode) {
         this.setUserCode(userCode);

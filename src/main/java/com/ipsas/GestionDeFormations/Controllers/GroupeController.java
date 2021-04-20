@@ -1,11 +1,10 @@
 package com.ipsas.GestionDeFormations.Controllers;
 
 import com.ipsas.GestionDeFormations.Models.Groupe;
-import com.ipsas.GestionDeFormations.Models.Matiere;
+import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Models.User;
 import com.ipsas.GestionDeFormations.Services.GroupeService;
-import com.ipsas.GestionDeFormations.Services.MatiereService;
-import com.ipsas.GestionDeFormations.Services.UserService;
+import com.ipsas.GestionDeFormations.Services.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +16,13 @@ import java.util.List;
 public class GroupeController {
 
     private final GroupeService groupeService;
-    private final UserService userService;
-    private final MatiereService matiereService;
+    private final StudentService studentService;
 
-    public GroupeController(GroupeService groupeService, UserService userService, MatiereService matiereService) {
+
+
+    public GroupeController(GroupeService groupeService, StudentService studentService) {
         this.groupeService = groupeService;
-        this.userService = userService;
-        this.matiereService = matiereService;
+        this.studentService = studentService;
     }
 
     @GetMapping("/all")
@@ -54,38 +53,6 @@ public class GroupeController {
     public ResponseEntity<?> delete(@PathVariable("id") Long id){
         groupeService.deleteGroupe(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping ("{gid}/addstudent/{uid}")
-    public ResponseEntity<Groupe> addUserToGroupe(@PathVariable("uid") Long uid,@PathVariable("gid") Long gid) {
-        User u = userService.findOneById(uid);
-        Groupe g = groupeService.findOneById(gid);
-        Groupe e = groupeService.addStudent(u,g);
-        return new ResponseEntity<>(e, HttpStatus.CREATED);
-    }
-
-    @PostMapping ("{gid}/deletestudent/{uid}")
-    public ResponseEntity<Groupe> deleteUserfromGroupe(@PathVariable("uid") Long uid,@PathVariable("gid") Long gid) {
-        User u = userService.findOneById(uid);
-        Groupe g = groupeService.findOneById(gid);
-        Groupe e = groupeService.deleteStudent(u,g);
-        return new ResponseEntity<>(e, HttpStatus.CREATED);
-    }
-
-    @PostMapping ("{gid}/addmatiere/{mid}")
-    public ResponseEntity<Groupe> addMatiereToGroupe(@PathVariable("mid") Long mid,@PathVariable("gid") Long gid){
-        Matiere m = matiereService.findOneById(mid);
-        Groupe g = groupeService.findOneById(gid);
-        Groupe e = groupeService.addMatiere(m,g);
-        return new ResponseEntity<>(e, HttpStatus.CREATED);
-    }
-
-    @PostMapping ("{gid}/deletematiere/{mid}")
-    public ResponseEntity<Groupe> deleteMatierefromGroupe(@PathVariable("mid") Long mid,@PathVariable("gid") Long gid){
-        Matiere m = matiereService.findOneById(mid);
-        Groupe g = groupeService.findOneById(gid);
-        Groupe e = groupeService.deleteMatiere(m,g);
-        return new ResponseEntity<>(e, HttpStatus.CREATED);
     }
 
 

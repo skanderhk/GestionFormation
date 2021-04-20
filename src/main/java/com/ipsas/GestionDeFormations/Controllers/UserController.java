@@ -1,8 +1,6 @@
 package com.ipsas.GestionDeFormations.Controllers;
 
-import com.ipsas.GestionDeFormations.Models.Note;
 import com.ipsas.GestionDeFormations.Models.User;
-import com.ipsas.GestionDeFormations.Services.NoteService;
 import com.ipsas.GestionDeFormations.Services.UserService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +11,9 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final NoteService noteService;
 
-    public UserController(UserService userService, NoteService noteService) {
+    public UserController(UserService userService ) {
         this.userService = userService;
-        this.noteService = noteService;
     }
 
     @GetMapping("/all")
@@ -48,14 +44,6 @@ public class UserController {
     public ResponseEntity<?> delete(@PathVariable("id") Long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping ("{id}/addnote/{nid}")
-    public ResponseEntity<User> addNote(@PathVariable("id") Long id,@PathVariable("nid") Long nid){
-        Note note = noteService.findOneById(nid);
-        User user = userService.findOneById(id);
-        User e = userService.addStudentNote(user,note);
-        return new ResponseEntity<>(e, HttpStatus.CREATED);
     }
 
 

@@ -12,11 +12,10 @@ public class Groupe {
     private Long id;
     private String Libelle;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gu_fid",referencedColumnName = "id")
-    List<User> StudentsList = new ArrayList<>();
-    @ManyToMany(cascade = CascadeType.ALL)
+    List<Student> StudentsList = new ArrayList<>();
+    /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "gm_fid",referencedColumnName = "id")
-    List<Matiere> matieresList = new ArrayList<>();
+    List<Matiere> matieresList = new ArrayList<>();*/
 
     public Groupe() {
     }
@@ -41,19 +40,19 @@ public class Groupe {
         Libelle = libelle;
     }
 
-    public List<User> getStudentsList() {
+    public List<Student> getStudentsList() {
         return StudentsList;
     }
 
-    public void setStudentsList(List<User> studentsList) {
+    public void setStudentsList(List<Student> studentsList) {
         StudentsList = studentsList;
     }
 
-    public List<Matiere> getMatieresList() {
+    /* public List<Matiere> getMatieresList() {
         return matieresList;
     }
 
     public void setMatieresList(List<Matiere> matieresList) {
         this.matieresList = matieresList;
-    }
+    }*/
 }

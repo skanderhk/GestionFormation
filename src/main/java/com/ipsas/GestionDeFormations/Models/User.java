@@ -7,13 +7,12 @@ import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "ROLE")
+@DiscriminatorColumn(name = "ROLE_NAME")
 @DiscriminatorValue("user")
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false,updatable = false)
     private Long id;
     @Column(nullable = false,updatable = false)
     private String userCode;
@@ -27,7 +26,6 @@ public class User implements Serializable {
     private Role role;
 
     public User(String firstname, String lastname, String username, String password, String email, String profileImageUrl, Role role) {
-        this.userCode = userCode;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;

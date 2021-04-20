@@ -4,16 +4,13 @@ import com.ipsas.GestionDeFormations.Enums.Role;
 import com.ipsas.GestionDeFormations.Exceptions.GroupeNotFoundException;
 import com.ipsas.GestionDeFormations.Exceptions.NotStudentException;
 import com.ipsas.GestionDeFormations.Models.Groupe;
-import com.ipsas.GestionDeFormations.Models.Matiere;
+import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Models.User;
 import com.ipsas.GestionDeFormations.Repositories.GroupeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class GroupeService {
@@ -48,27 +45,27 @@ public class GroupeService {
         groupeRepo.deleteById(id);
     }
 
-    public Groupe addStudent(User u,Groupe e) {
+    public Groupe addStudent(Student u, Groupe e) {
         if (!(u.getRole().equals(Role.STUDENT))) {
-            throw new NotStudentException("User : "+u.getFirstname()+" "+u.getLastname()+" is not a STUDENT");
+            throw new NotStudentException("Student : "+u.getFirstname()+" "+u.getLastname()+" is not a STUDENT");
         }
-        List<User> userList = e.getStudentsList();
+        List<Student> userList = e.getStudentsList();
         userList.add(u);
         e.setStudentsList(userList);
         return groupeRepo.save(e);
     }
 
-    public Groupe deleteStudent(User u, Groupe g)  {
+    public Groupe deleteStudent(Student u, Groupe g)  {
         if (!(u.getRole().equals(Role.STUDENT))) {
-            throw new NotStudentException("User : "+u.getFirstname()+" "+u.getLastname()+" is not a STUDENT");
+            throw new NotStudentException("Student : "+u.getFirstname()+" "+u.getLastname()+" is not a STUDENT");
         }
-        List<User> userList = g.getStudentsList();
+        List<Student> userList = g.getStudentsList();
         userList.remove(u);
         g.setStudentsList(userList);
         return groupeRepo.save(g);
     }
 
-    public Groupe addMatiere(Matiere m,Groupe e) {
+   /* public Groupe addMatiere(Matiere m,Groupe e) {
         List<Matiere> matiereList = e.getMatieresList();
         matiereList.add(m);
         e.setMatieresList(matiereList);
@@ -80,5 +77,5 @@ public class GroupeService {
         matiereList.remove(m);
         g.setMatieresList(matiereList);
         return groupeRepo.save(g);
-    }
+    }*/
 }
