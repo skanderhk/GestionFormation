@@ -1,5 +1,6 @@
 package com.ipsas.GestionDeFormations;
 
+import com.ipsas.GestionDeFormations.Enums.Role;
 import com.ipsas.GestionDeFormations.Models.User;
 import com.ipsas.GestionDeFormations.Repositories.UserRepository;
 import org.springframework.boot.SpringApplication;

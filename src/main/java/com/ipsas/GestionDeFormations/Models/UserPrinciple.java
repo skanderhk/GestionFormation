@@ -1,5 +1,6 @@
 package com.ipsas.GestionDeFormations.Models;
 
+import com.ipsas.GestionDeFormations.Enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

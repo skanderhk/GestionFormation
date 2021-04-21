@@ -1,16 +1,16 @@
 package com.ipsas.GestionDeFormations.Services;
 
 import com.ipsas.GestionDeFormations.Enums.Role;
-import com.ipsas.GestionDeFormations.Models.Groupe;
-import com.ipsas.GestionDeFormations.Models.Student;
-import com.ipsas.GestionDeFormations.Models.User;
+import com.ipsas.GestionDeFormations.Models.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,14 +18,20 @@ import java.util.List;
 public class DbInit implements CommandLineRunner {
     private UserService userService;
     private StudentService studentService;
+    private MatiereService matiereService;
     private GroupeService groupeService;
     private PasswordEncoder passwordEncoder;
+    private AdminService adminService;
+    private EmployeeService employeeService;
 
-    public DbInit(UserService userService, StudentService studentService, GroupeService groupeService, PasswordEncoder passwordEncoder) {
+    public DbInit(UserService userService,MatiereService matiereService,EmployeeService employeeService, StudentService studentService, GroupeService groupeService, PasswordEncoder passwordEncoder, AdminService adminService) {
         this.userService = userService;
         this.studentService = studentService;
+        this.matiereService = matiereService;
         this.groupeService = groupeService;
         this.passwordEncoder = passwordEncoder;
+        this.adminService = adminService;
+        this.employeeService = employeeService;
     }
 
     @Override
@@ -35,5 +41,13 @@ public class DbInit implements CommandLineRunner {
         this.groupeService.addGroupe(g);
         this.studentService.addStudent(s);
         this.studentService.joinGroupe(s,g);
+        Matiere m1 = new Matiere(30,"Math");
+        Matiere m2 = new Matiere(15,"INFO");
+        List<Matiere> listMatieres = Arrays.asList(m1,m2);
+        this.matiereService.addMatieres(listMatieres);
+        Admin a = new Admin("Super","Admin","admin", passwordEncoder.encode("12325135"),"admin@gmail.com", "https://bootdey.com/img/Content/avatar/avatar1.png");
+        this.adminService.addAdmin(a);
+        Employee e = new Employee("Ahmed","Jmal","ahmed", passwordEncoder.encode("123456"),"ahmed@gmail.com","https://bootdey.com/img/Content/avatar/avatar3.png");
+        this.employeeService.addEmployee(e);
     }
 }

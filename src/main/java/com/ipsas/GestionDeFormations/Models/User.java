@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "ROLE_NAME")
-@DiscriminatorValue("user")
+@DiscriminatorValue("USER")
 public class User implements Serializable {
 
     @Id

@@ -13,9 +13,8 @@ public class Groupe {
     private String Libelle;
     @OneToMany(cascade = CascadeType.ALL)
     List<Student> StudentsList = new ArrayList<>();
-    /*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gm_fid",referencedColumnName = "id")
-    List<Matiere> matieresList = new ArrayList<>();*/
+    @ManyToMany(cascade = CascadeType.ALL)
+    List<Matiere> matieresList = new ArrayList<>();
 
     public Groupe() {
     }

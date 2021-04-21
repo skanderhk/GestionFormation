@@ -7,15 +7,15 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("student")
+@DiscriminatorValue("STUDENT")
 public class Student extends User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
     private Groupe groupe;
-    /*@OneToMany
-    private List<Note> listNote;*/
+    @OneToMany
+    private List<Note> listNote;
 
     public Student() {
 
@@ -43,15 +43,11 @@ public class Student extends User implements Serializable {
         this.groupe = groupe;
     }
 
-    /*public List<Note> getListNote() {
+    public List<Note> getListNote() {
         return listNote;
     }
 
     public void setListNote(List<Note> listNote) {
         this.listNote = listNote;
-    }*/
-
-    public void setStudentCode(String userCode) {
-        this.setUserCode(userCode);
     }
 }

@@ -1,9 +1,9 @@
 package com.ipsas.GestionDeFormations.Repositories;
 
-import com.ipsas.GestionDeFormations.Models.Student;
+import com.ipsas.GestionDeFormations.Models.FichePresence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Long> {
+public interface FichePresenceRepository extends JpaRepository<FichePresence, Long> {
 }
