@@ -1,7 +1,9 @@
 package com.ipsas.GestionDeFormations.Services;
 
 import com.ipsas.GestionDeFormations.Exceptions.MatiereNotFoundException;
+import com.ipsas.GestionDeFormations.Models.Groupe;
 import com.ipsas.GestionDeFormations.Models.Matiere;
+import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Repositories.MatiereRepository;
 import com.ipsas.GestionDeFormations.Repositories.MatiereRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,11 @@ public class MatiereService {
         matiereRepo.deleteById(id);
     }
 
+    public Matiere addToGroupe(Matiere E, Groupe g){
+        System.out.println(E.toString() +" "+g.toString());
+        g.getMatieresList().add(E);
+        E.getGroupeList().add(g);
+        return matiereRepo.save(E);
+    }
 
 }

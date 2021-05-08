@@ -1,5 +1,6 @@
 package com.ipsas.GestionDeFormations.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ipsas.GestionDeFormations.Enums.Role;
 
 import javax.persistence.*;
@@ -12,7 +13,9 @@ public class Student extends User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "groupe_id",referencedColumnName = "id")
+    @JsonIgnoreProperties(value = {"studentsList"})
     private Groupe groupe;
     @OneToMany
     private List<Note> listNote;

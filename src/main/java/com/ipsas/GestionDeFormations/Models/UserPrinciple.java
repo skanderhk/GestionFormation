@@ -2,9 +2,12 @@ package com.ipsas.GestionDeFormations.Models;
 
 import com.ipsas.GestionDeFormations.Enums.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserPrinciple implements UserDetails {
     private User user;
@@ -15,7 +18,11 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+this.user.getRole().name());
+        authorities.add(authority);
+        return authorities;
     }
 
     @Override

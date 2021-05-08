@@ -36,4 +36,12 @@ public class FichePresence {
     public void setPresence(boolean presence) {
         this.presence = presence;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

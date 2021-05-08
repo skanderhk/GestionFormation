@@ -1,13 +1,12 @@
 package com.ipsas.GestionDeFormations.Models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -21,8 +20,9 @@ public class Matiere {
     private double nombreHeureEnseigne;
     @OneToMany
     private List<Seance> listSeance;
-    @OneToOne
-    private Groupe groupe;
+    @ManyToMany(fetch = FetchType.EAGER ,mappedBy = "matieresList",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JsonIgnoreProperties(value = "matieresList")
+    private List<Groupe> groupeList = new ArrayList<>();
 
     public Matiere(double volumeHoraire, String libelle) {
         this.volumeHoraire = volumeHoraire;
@@ -60,6 +60,18 @@ public class Matiere {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Matiere{" +
+                "id=" + id +
+                ", volumeHoraire=" + volumeHoraire +
+                ", libelle='" + libelle + '\'' +
+                ", nombreHeureEnseigne=" + nombreHeureEnseigne +
+                ", listSeance=" + listSeance +
+                ", groupeList=" + groupeList +
+                '}';
+    }
+
     public void addNombreHeureEnseigne(double nombreHeure) {
         double totalNombreHeure = this.nombreHeureEnseigne + nombreHeure;
         setNombreHeureEnseigne(totalNombreHeure);
@@ -77,16 +89,19 @@ public class Matiere {
         this.listSeance.add(seance);
     }
 
-    public Groupe getGroupe() {
-        return groupe;
+    public List<Groupe> getGroupeList() {
+        return groupeList;
     }
 
-    public void setGroupe(Groupe groupe) {
-        this.groupe = groupe;
+    public void setGroupeList(List<Groupe> groupeList) {
+        this.groupeList = groupeList;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

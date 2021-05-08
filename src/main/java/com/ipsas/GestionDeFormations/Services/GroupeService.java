@@ -4,6 +4,7 @@ import com.ipsas.GestionDeFormations.Enums.Role;
 import com.ipsas.GestionDeFormations.Exceptions.GroupeNotFoundException;
 import com.ipsas.GestionDeFormations.Exceptions.NotStudentException;
 import com.ipsas.GestionDeFormations.Models.Groupe;
+import com.ipsas.GestionDeFormations.Models.Matiere;
 import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Models.User;
 import com.ipsas.GestionDeFormations.Repositories.GroupeRepository;
@@ -49,9 +50,7 @@ public class GroupeService {
         if (!(u.getRole().equals(Role.STUDENT))) {
             throw new NotStudentException("Student : "+u.getFirstname()+" "+u.getLastname()+" is not a STUDENT");
         }
-        List<Student> userList = e.getStudentsList();
-        userList.add(u);
-        e.setStudentsList(userList);
+        e.getStudentsList().add(u);
         return groupeRepo.save(e);
     }
 
@@ -59,23 +58,19 @@ public class GroupeService {
         if (!(u.getRole().equals(Role.STUDENT))) {
             throw new NotStudentException("Student : "+u.getFirstname()+" "+u.getLastname()+" is not a STUDENT");
         }
-        List<Student> userList = g.getStudentsList();
-        userList.remove(u);
-        g.setStudentsList(userList);
+        g.getStudentsList().remove(u);
         return groupeRepo.save(g);
     }
 
-   /* public Groupe addMatiere(Matiere m,Groupe e) {
-        List<Matiere> matiereList = e.getMatieresList();
-        matiereList.add(m);
-        e.setMatieresList(matiereList);
-        return groupeRepo.save(e);
+   public Groupe addMatiereList(List<Matiere> matiereList, Groupe e) {
+       for (Matiere m:matiereList) {
+           e.getMatieresList().add(m);
+       }
+       return groupeRepo.save(e);
     }
 
     public Groupe deleteMatiere(Matiere m, Groupe g) {
-        List<Matiere> matiereList = g.getMatieresList();
-        matiereList.remove(m);
-        g.setMatieresList(matiereList);
+        g.getMatieresList().remove(m);
         return groupeRepo.save(g);
-    }*/
+    }
 }

@@ -25,7 +25,7 @@ public class GroupeController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Groupe>> index(){
         List<Groupe> l = groupeService.findAll();
         return new ResponseEntity<>(l, HttpStatus.OK);

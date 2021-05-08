@@ -20,9 +20,9 @@ public class Seance {
     private String description;
     @OneToMany
     private List<FichePresence> listFichePresence;
-    @OneToOne
+    @ManyToOne
     private Matiere matiere;
-    @OneToOne
+    @ManyToOne
     private Groupe groupe;
 
     public Seance(Date date, double duree, String description, List<FichePresence> listFichePresence, Matiere matiere, Groupe groupe) {
@@ -97,4 +97,6 @@ public class Seance {
     public void addFichePresence(FichePresence fichePresence) {
         this.listFichePresence.add(fichePresence);
     }
+
+
 }

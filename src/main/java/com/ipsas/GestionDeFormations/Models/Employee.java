@@ -40,4 +40,14 @@ public class Employee extends User{
     public void setListGroupe(List<Groupe> listGroupe) {
         this.listGroupe = listGroupe;
     }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

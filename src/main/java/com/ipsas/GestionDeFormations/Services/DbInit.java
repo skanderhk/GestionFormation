@@ -1,16 +1,11 @@
 package com.ipsas.GestionDeFormations.Services;
 
-import com.ipsas.GestionDeFormations.Enums.Role;
 import com.ipsas.GestionDeFormations.Models.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 
@@ -49,5 +44,8 @@ public class DbInit implements CommandLineRunner {
         this.adminService.addAdmin(a);
         Employee e = new Employee("Ahmed","Jmal","ahmed", passwordEncoder.encode("123456"),"ahmed@gmail.com","https://bootdey.com/img/Content/avatar/avatar3.png");
         this.employeeService.addEmployee(e);
+        this.matiereService.addToGroupe(m1,g);
+
+
     }
 }

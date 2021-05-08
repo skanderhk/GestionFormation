@@ -1,6 +1,7 @@
 package com.ipsas.GestionDeFormations.Controllers;
 
-import com.ipsas.GestionDeFormations.Models.Student;
+import com.ipsas.GestionDeFormations.Models.Matiere;
+import com.ipsas.GestionDeFormations.Services.MatiereService;
 import com.ipsas.GestionDeFormations.Services.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,44 +10,46 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
-public class StudentController {
+@RequestMapping("/matiere")
+public class MatiereController {
 
+    private final MatiereService matiereService;
     private final StudentService studentService;
 
 
 
-    public StudentController(StudentService studentService) {
+    public MatiereController(MatiereService matiereService, StudentService studentService) {
+        this.matiereService = matiereService;
         this.studentService = studentService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> index(){
-        List<Student> l = studentService.findAll();
+    public ResponseEntity<List<Matiere>> index(){
+        List<Matiere> l = matiereService.findAll();
         return new ResponseEntity<>(l, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> findById(@PathVariable("id") Long id){
-        Student e = studentService.findOneById(id);
+    public ResponseEntity<Matiere> findById(@PathVariable("id") Long id){
+        Matiere e = matiereService.findOneById(id);
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
     @PostMapping ("/add")
-    public ResponseEntity<Student> add(@RequestBody Student student){
-        Student e = studentService.addStudent(student);
+    public ResponseEntity<Matiere> add(@RequestBody Matiere groupe){
+        Matiere e = matiereService.addMatiere(groupe);
         return new ResponseEntity<>(e, HttpStatus.CREATED);
     }
 
     @PutMapping  ("/update")
-    public ResponseEntity<Student> update(@RequestBody Student student){
-        Student e = studentService.updateStudent(student);
+    public ResponseEntity<Matiere> update(@RequestBody Matiere groupe){
+        Matiere e = matiereService.updateMatiere(groupe);
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
     @DeleteMapping  ("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id){
-        studentService.deleteStudent(id);
+        matiereService.deleteMatiere(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
