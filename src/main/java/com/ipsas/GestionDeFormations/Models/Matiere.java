@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class Matiere {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private Long id;
     private double volumeHoraire;

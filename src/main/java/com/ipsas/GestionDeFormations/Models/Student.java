@@ -11,13 +11,15 @@ import java.util.List;
 @DiscriminatorValue("STUDENT")
 public class Student extends User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "groupe_id",referencedColumnName = "id")
     @JsonIgnoreProperties(value = {"studentsList"})
     private Groupe groupe;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(name = "note_student", joinColumns = @JoinColumn(name = "note_id"),inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @JsonIgnoreProperties(value = "student")
     private List<Note> listNote;
 
     public Student() {

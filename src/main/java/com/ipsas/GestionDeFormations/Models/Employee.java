@@ -9,7 +9,7 @@ import java.util.List;
 @DiscriminatorValue("EMPLOYEE")
 public class Employee extends User{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
     private List<Matiere> listMatiere;

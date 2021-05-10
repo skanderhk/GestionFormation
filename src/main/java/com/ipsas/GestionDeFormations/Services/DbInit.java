@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class DbInit implements CommandLineRunner {
     private UserService userService;
+    private NoteService noteService;
     private StudentService studentService;
     private MatiereService matiereService;
     private GroupeService groupeService;
@@ -19,8 +20,9 @@ public class DbInit implements CommandLineRunner {
     private AdminService adminService;
     private EmployeeService employeeService;
 
-    public DbInit(UserService userService,MatiereService matiereService,EmployeeService employeeService, StudentService studentService, GroupeService groupeService, PasswordEncoder passwordEncoder, AdminService adminService) {
+    public DbInit(UserService userService, NoteService noteService, StudentService studentService, MatiereService matiereService, GroupeService groupeService, PasswordEncoder passwordEncoder, AdminService adminService, EmployeeService employeeService) {
         this.userService = userService;
+        this.noteService = noteService;
         this.studentService = studentService;
         this.matiereService = matiereService;
         this.groupeService = groupeService;
@@ -45,7 +47,7 @@ public class DbInit implements CommandLineRunner {
         Employee e = new Employee("Ahmed","Jmal","ahmed", passwordEncoder.encode("123456"),"ahmed@gmail.com","https://bootdey.com/img/Content/avatar/avatar3.png");
         this.employeeService.addEmployee(e);
         this.matiereService.addToGroupe(m1,g);
-
-
+        Note note = new Note(15,12,m1,s);
+        this.noteService.addNote(note);
     }
 }

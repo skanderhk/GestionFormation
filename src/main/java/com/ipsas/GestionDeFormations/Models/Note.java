@@ -1,16 +1,14 @@
 package com.ipsas.GestionDeFormations.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Note {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private Long id;
     private double noteDC;
@@ -18,12 +16,14 @@ public class Note {
     private double moyenne;
     @OneToOne
     private Matiere matiere;
-    @OneToOne
-    private Student etudiant;
+    @ManyToOne
+    private Student student;
 
-    public Note(double noteDC, double noteDS) {
+    public Note(double noteDC, double noteDS, Matiere matiere, Student student) {
         this.noteDC = noteDC;
         this.noteDS = noteDS;
+        this.matiere = matiere;
+        this.student = student;
         this.moyenne = updateMoyenne();
     }
 
@@ -65,11 +65,11 @@ public class Note {
     }
 
     public Student getStudent() {
-        return etudiant;
+        return student;
     }
 
-    public void setStudent(Student etudiant) {
-        this.etudiant = etudiant;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Long getId() {

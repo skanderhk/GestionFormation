@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/groupe")
+@RequestMapping("/groupes")
 public class GroupeController {
 
     private final GroupeService groupeService;

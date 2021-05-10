@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class FichePresence {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
     private Student student;

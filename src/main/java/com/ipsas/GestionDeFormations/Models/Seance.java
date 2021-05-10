@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class Seance {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private java.util.Date date;

@@ -10,7 +10,7 @@ import java.util.List;
 public class Groupe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String Libelle;
     @OneToMany(mappedBy = "groupe",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})

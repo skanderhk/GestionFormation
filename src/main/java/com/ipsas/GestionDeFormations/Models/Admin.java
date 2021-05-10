@@ -8,7 +8,7 @@ import javax.persistence.*;
 @DiscriminatorValue("ADMIN")
 public class Admin extends User{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Admin(String firstname, String lastname, String username, String password, String email, String profileImageUrl) {

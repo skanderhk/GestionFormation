@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/matiere")
+@RequestMapping("/matieres")
 public class MatiereController {
 
     private final MatiereService matiereService;
