@@ -46,8 +46,11 @@ public class DbInit implements CommandLineRunner {
         this.adminService.addAdmin(a);
         Employee e = new Employee("Ahmed","Jmal","ahmed", passwordEncoder.encode("123456"),"ahmed@gmail.com","https://bootdey.com/img/Content/avatar/avatar3.png");
         this.employeeService.addEmployee(e);
+        this.employeeService.addGroup(e,g);
+        this.employeeService.addToMatiereList(m1,e);
         this.matiereService.addToGroupe(m1,g);
         Note note = new Note(15,12,m1,s);
-        this.noteService.addNote(note);
+        Note note2 = new Note(10,11,m2,s);
+        this.noteService.addNotes(Arrays.asList(note,note2));
     }
 }

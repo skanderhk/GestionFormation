@@ -24,10 +24,13 @@ public class Matiere {
     @JsonIgnoreProperties(value = "matieresList")
     private List<Groupe> groupeList = new ArrayList<>();
 
+
     public Matiere(double volumeHoraire, String libelle) {
         this.volumeHoraire = volumeHoraire;
         this.libelle = libelle;
         this.nombreHeureEnseigne = 0;
+        this.listSeance = listSeance;
+        this.groupeList = groupeList;
     }
 
     public Matiere() {

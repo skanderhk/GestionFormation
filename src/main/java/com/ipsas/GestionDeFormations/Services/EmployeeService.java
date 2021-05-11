@@ -61,6 +61,11 @@ public class EmployeeService {
         matiereRepo.save(matiere);
     }
 
+    public void addToMatiereList(Matiere matiere, Employee E) {
+        E.getListMatiere().add(matiere);
+        employeeRepo.save(E);
+    }
+
     public void setNoteDC(Matiere matiere, Student student, double noteDC) {
         List<Note> noteList = student.getListNote();
         for (Note n:noteList) {
@@ -86,5 +91,9 @@ public class EmployeeService {
 
     }
 
-    
+    public void addGroup(Employee e, Groupe g) {
+        this.employeeRepo.save(e);
+        e.getListGroupe().add(g);
+        this.employeeRepo.save(e);
+    }
 }

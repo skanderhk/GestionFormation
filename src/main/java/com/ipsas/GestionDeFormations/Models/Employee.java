@@ -3,6 +3,7 @@ package com.ipsas.GestionDeFormations.Models;
 import com.ipsas.GestionDeFormations.Enums.Role;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,9 +13,9 @@ public class Employee extends User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
-    private List<Matiere> listMatiere;
-    @ManyToMany
-    private List<Groupe> listGroupe;
+    private List<Matiere> listMatiere = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER ,mappedBy = "employeeList",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private List<Groupe> listGroupe= new ArrayList<>();
 
     public Employee(String firstname, String lastname, String username, String password, String email, String profileImageUrl) {
         super(firstname, lastname, username, password, email, profileImageUrl, Role.EMPLOYEE);

@@ -3,6 +3,7 @@ package com.ipsas.GestionDeFormations.Controllers;
 import com.ipsas.GestionDeFormations.Models.Note;
 import com.ipsas.GestionDeFormations.Services.NoteService;
 import com.ipsas.GestionDeFormations.Services.StudentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notes")
+@Tag(name = "Note Conroller", description = "Full CRUD for Note Model")
 public class NoteController {
 
     private final NoteService noteService;

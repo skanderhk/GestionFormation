@@ -2,6 +2,7 @@ package com.ipsas.GestionDeFormations.Controllers;
 
 import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Services.StudentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/students")
+@Tag(name = "Student Conroller", description = "Full CRUD for Student Model")
 public class StudentController {
 
     private final StudentService studentService;

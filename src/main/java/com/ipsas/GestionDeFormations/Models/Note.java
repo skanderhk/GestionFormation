@@ -2,6 +2,7 @@ package com.ipsas.GestionDeFormations.Models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,9 +15,10 @@ public class Note {
     private double noteDC;
     private double noteDS;
     private double moyenne;
-    @OneToOne
+    @OneToOne(targetEntity = Matiere.class,fetch = FetchType.EAGER)
     private Matiere matiere;
     @ManyToOne
+    @JsonIgnore
     private Student student;
 
     public Note(double noteDC, double noteDS, Matiere matiere, Student student) {

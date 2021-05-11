@@ -5,6 +5,7 @@ import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Models.User;
 import com.ipsas.GestionDeFormations.Services.GroupeService;
 import com.ipsas.GestionDeFormations.Services.StudentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/groupes")
+@Tag(name = "Group Conroller", description = "Full CRUD for Group Model")
 public class GroupeController {
 
     private final GroupeService groupeService;
