@@ -47,10 +47,12 @@ public class MatiereService {
     }
 
     public Matiere addToGroupe(Matiere E, Groupe g){
-        System.out.println(E.toString() +" "+g.toString());
-        g.getMatieresList().add(E);
-        E.getGroupeList().add(g);
-        return matiereRepo.save(E);
+        Matiere matiere = this.matiereRepo.getOne(E.getId());
+        if (matiere != null) {
+            g.getMatieresList().add(E);
+            return matiereRepo.save(E);
+        }
+        else throw new MatiereNotFoundException("Matiere by id : "+E.getId()+" is not found !" );
     }
 
 }

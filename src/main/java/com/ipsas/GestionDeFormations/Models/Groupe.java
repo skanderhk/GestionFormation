@@ -23,22 +23,18 @@ public class Groupe {
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(name = "matiere_groupe", joinColumns = @JoinColumn(name = "matiere_id"),inverseJoinColumns = @JoinColumn(name = "groupe_id"))
-    @JsonIgnore
+    @JsonIgnoreProperties(value = "groupeList")
     List<Matiere> matieresList = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinTable(name = "employee_groupe", joinColumns = @JoinColumn(name = "employee_id"),inverseJoinColumns = @JoinColumn(name = "groupe_id"))
-    List<Employee> employeeList = new ArrayList<>();
 
 
     public Groupe() {
     }
 
-    public Groupe(String libelle, List<Student> studentsList, List<Matiere> matieresList, List<Employee> employeeList) {
+    public Groupe(String libelle, List<Student> studentsList, List<Matiere> matieresList) {
         Libelle = libelle;
         StudentsList = studentsList;
         this.matieresList = matieresList;
-        this.employeeList = employeeList;
     }
 
     public Groupe(String libelle) {
@@ -47,16 +43,6 @@ public class Groupe {
 
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        return "Groupe{" +
-                "id=" + id +
-                ", Libelle='" + Libelle + '\'' +
-                ", StudentsList=" + StudentsList +
-                ", matieresList=" + matieresList +
-                '}';
     }
 
     public void setId(Long id) {
@@ -85,13 +71,5 @@ public class Groupe {
 
     public void setMatieresList(List<Matiere> matieresList) {
         this.matieresList = matieresList;
-    }
-
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
     }
 }

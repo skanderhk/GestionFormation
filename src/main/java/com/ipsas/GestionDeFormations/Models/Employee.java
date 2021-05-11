@@ -14,7 +14,8 @@ public class Employee extends User{
     private Long id;
     @OneToMany
     private List<Matiere> listMatiere = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.EAGER ,mappedBy = "employeeList",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+
+    @OneToMany( targetEntity = Groupe.class, fetch = FetchType.EAGER ,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private List<Groupe> listGroupe= new ArrayList<>();
 
     public Employee(String firstname, String lastname, String username, String password, String email, String profileImageUrl) {
@@ -51,4 +52,5 @@ public class Employee extends User{
     public void setId(Long id) {
         this.id = id;
     }
+
 }

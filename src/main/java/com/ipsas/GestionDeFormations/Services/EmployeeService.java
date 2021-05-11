@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -62,8 +63,11 @@ public class EmployeeService {
     }
 
     public void addToMatiereList(Matiere matiere, Employee E) {
-        E.getListMatiere().add(matiere);
-        employeeRepo.save(E);
+        Employee employee = employeeRepo.findById(E.getId()).get();
+        if ( employee != null ) {
+            employee.getListMatiere().add(matiere);
+            employeeRepo.save(employee);
+        }else throw new EmployeeNotFoundException("Employee with ID : "+E.getId()+" dosen't exist !");
     }
 
     public void setNoteDC(Matiere matiere, Student student, double noteDC) {
@@ -92,8 +96,10 @@ public class EmployeeService {
     }
 
     public void addGroup(Employee e, Groupe g) {
-        this.employeeRepo.save(e);
-        e.getListGroupe().add(g);
-        this.employeeRepo.save(e);
+        Employee employee = this.employeeRepo.findById(e.getId()).get();
+        if ( employee != null ){
+        employee.getListGroupe().add(g);
+        employeeRepo.save(employee);
+        } else throw new EmployeeNotFoundException("Employee with ID : "+e.getId()+" dosen't exist !");
     }
 }
