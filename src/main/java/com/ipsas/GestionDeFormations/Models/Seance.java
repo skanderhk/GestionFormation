@@ -1,13 +1,15 @@
 package com.ipsas.GestionDeFormations.Models;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Seance {
@@ -15,21 +17,24 @@ public class Seance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private java.util.Date date;
+    private LocalDate date;
     private double duree;
     private String description;
     @OneToMany
     private List<FichePresence> listFichePresence;
-    @ManyToOne
+
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JsonIgnoreProperties(value = {"listSeance"})
     private Matiere matiere;
+
     @ManyToOne
     private Groupe groupe;
 
-    public Seance(Date date, double duree, String description, List<FichePresence> listFichePresence, Matiere matiere, Groupe groupe) {
+    public Seance(LocalDate date, double duree, String description, List<FichePresence> listFichePresence, Matiere matiere, Groupe groupe) {
         this.date = date;
         this.duree = duree;
         this.description = description;
-        this.listFichePresence = listFichePresence;
+        this.listFichePresence = new ArrayList<>();
         this.matiere = matiere;
         this.groupe = groupe;
     }
@@ -54,11 +59,11 @@ public class Seance {
 
     }
 
-    public java.util.Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(java.util.Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -95,8 +100,14 @@ public class Seance {
     }
 
     public void addFichePresence(FichePresence fichePresence) {
+        Student student = fichePresence.getStudent();
+
+        for (FichePresence fiche:listFichePresence) {
+            if (fiche.getStudent() == student){
+                throw new RuntimeException("Fiche Presance of Student "+student.getFirstname()+" is already exist");
+            }
+        }
         this.listFichePresence.add(fichePresence);
     }
-
 
 }

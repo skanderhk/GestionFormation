@@ -57,4 +57,6 @@ public class Student extends User implements Serializable {
     public void setListNote(List<Note> listNote) {
         this.listNote = listNote;
     }
+
+
 }

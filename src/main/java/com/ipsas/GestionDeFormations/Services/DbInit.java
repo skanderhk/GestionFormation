@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,8 +21,11 @@ public class DbInit implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
     private AdminService adminService;
     private EmployeeService employeeService;
+    private SeanceService seanceService;
+    private FichePresanceService fichePresanceService;
 
-    public DbInit(UserService userService, NoteService noteService, StudentService studentService, MatiereService matiereService, GroupeService groupeService, PasswordEncoder passwordEncoder, AdminService adminService, EmployeeService employeeService) {
+    public DbInit(FichePresanceService fichePresanceService,UserService userService, NoteService noteService, StudentService studentService, MatiereService matiereService, GroupeService groupeService, PasswordEncoder passwordEncoder, AdminService adminService, EmployeeService employeeService, SeanceService seanceService) {
+        this.fichePresanceService = fichePresanceService;
         this.userService = userService;
         this.noteService = noteService;
         this.studentService = studentService;
@@ -29,6 +34,7 @@ public class DbInit implements CommandLineRunner {
         this.passwordEncoder = passwordEncoder;
         this.adminService = adminService;
         this.employeeService = employeeService;
+        this.seanceService = seanceService;
     }
 
     @Override
@@ -52,5 +58,24 @@ public class DbInit implements CommandLineRunner {
         Note note2 = new Note(10,11,m2,s);
         this.noteService.addNotes(Arrays.asList(note,note2));
         this.employeeService.addGroup(e,g);
+
+
+
+        Seance seance = new Seance(LocalDate.now(),3,"Sceance Rattrapage",Arrays.asList(),m1,g);
+        Seance seance2 = new Seance(LocalDate.now(),3,"Sceance O5ra",Arrays.asList(),m1,g);
+
+        FichePresence fichePresence = new FichePresence(s,true);
+        this.fichePresanceService.addFichePresence(fichePresence);
+
+        FichePresence fichePresence2 = new FichePresence(s,false);
+        this.fichePresanceService.addFichePresence(fichePresence2);
+
+        seance.addFichePresence(fichePresence);
+        seance2.addFichePresence(fichePresence2);
+
+        this.seanceService.addSeance(seance);
+        this.seanceService.addSeance(seance2);
+
+        System.out.println(this.studentService.getTauxDePresenceParMatiere(s,m1));
     }
 }

@@ -18,8 +18,11 @@ public class Matiere {
     private double volumeHoraire;
     private String libelle;
     private double nombreHeureEnseigne;
-    @OneToMany
+
+    @OneToMany(mappedBy = "matiere",cascade = {CascadeType.MERGE})
+    @JsonIgnoreProperties(value = {"matiere","groupe"})
     private List<Seance> listSeance;
+
     @ManyToMany(fetch = FetchType.EAGER ,mappedBy = "matieresList",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JsonIgnoreProperties(value = "matieresList")
     private List<Groupe> groupeList = new ArrayList<>();
@@ -107,4 +110,5 @@ public class Matiere {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

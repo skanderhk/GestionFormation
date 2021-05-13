@@ -109,4 +109,8 @@ public class User implements Serializable {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public String getFullName(){
+        return this.firstname +" "+this.lastname;
+    }
 }

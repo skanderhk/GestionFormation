@@ -11,6 +11,7 @@ public class FichePresence {
     private Student student;
     private boolean presence;
 
+
     public FichePresence(Student student, boolean presence) {
         super();
         this.student = student;

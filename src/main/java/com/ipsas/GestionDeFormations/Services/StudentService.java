@@ -2,6 +2,7 @@ package com.ipsas.GestionDeFormations.Services;
 
 import com.ipsas.GestionDeFormations.Exceptions.StudentNotFoundException;
 import com.ipsas.GestionDeFormations.Models.*;
+import com.ipsas.GestionDeFormations.Repositories.MatiereRepository;
 import com.ipsas.GestionDeFormations.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,12 @@ import java.util.UUID;
 public class StudentService {
 
     private final StudentRepository studentRepo;
+    private final MatiereRepository matiereRepo;
 
     @Autowired
-    public StudentService(StudentRepository studentRepo) {
+    public StudentService(StudentRepository studentRepo, MatiereRepository matiereRepo) {
         this.studentRepo = studentRepo;
+        this.matiereRepo = matiereRepo;
     }
 
     public Student addStudent(Student E){
@@ -69,17 +72,21 @@ public class StudentService {
         return sum/ listdesnotes.size();
     }
 
-    public double getTauxDePresenceParMatiere(Student E, Matiere M){
-        double sum = 0;
+    public double getTauxDePresenceParMatiere(Student student, Matiere matiere){
+        Student E = this.studentRepo.getOne(student.getId());
+        Matiere M = this.matiereRepo.getOne(matiere.getId());
         List<Seance> seanceList = M.getListSeance();
-        for (Seance s:seanceList) {
-            List<FichePresence> fichePresenceList = s.getListFichePresence();
-            for (FichePresence f:fichePresenceList) {
-                if ((f.getStudent().equals(E))&&(f.isPresence())) {
+        double sum = 0;
+        for (Seance seance:seanceList) {
+            List<FichePresence> fichePresenceList = seance.getListFichePresence();
+            for (FichePresence fichePresence:fichePresenceList) {
+                if ( (fichePresence.isPresence()) && (fichePresence.getStudent().getId().equals(E.getId())) ){
                     sum += 1;
                 }
             }
+
         }
-        return sum / seanceList.size()*100;
+        return sum *100 / M.getListSeance().size();
     }
 }
+
