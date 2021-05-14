@@ -3,6 +3,7 @@ package com.ipsas.GestionDeFormations.Controllers;
 import com.ipsas.GestionDeFormations.Models.Seance;
 import com.ipsas.GestionDeFormations.Services.SeanceService;
 import com.ipsas.GestionDeFormations.Services.StudentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/seances")
 @Tag(name = "Seance Conroller", description = "Full CRUD for Seance Model")
+@SecurityRequirement(name = "JwtAuthentication")
 public class SeanceController {
 
     private final SeanceService seanceService;
@@ -22,7 +24,7 @@ public class SeanceController {
         this.seanceService = seanceService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<Seance>> index(){
         List<Seance> l = seanceService.findAll();
         return new ResponseEntity<>(l, HttpStatus.OK);

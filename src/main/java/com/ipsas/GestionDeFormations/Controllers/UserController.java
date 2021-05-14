@@ -2,6 +2,8 @@ package com.ipsas.GestionDeFormations.Controllers;
 
 import com.ipsas.GestionDeFormations.Models.User;
 import com.ipsas.GestionDeFormations.Services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @Tag(name = "User Conroller", description = "Full CRUD for User Model")
+@SecurityRequirement(name = "JwtAuthentication")
 public class UserController {
 
     private final UserService userService;
@@ -18,6 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(security = @SecurityRequirement(name = "JwtAuthentication"))
     @GetMapping("/")
     public ResponseEntity<List<User>> index(){
         List<User> l = userService.findAll();

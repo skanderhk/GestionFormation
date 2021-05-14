@@ -20,6 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String[] WHITELIST = {
+            // -- Swagger UI v3 (OpenAPI)
+            "/api-docs/**", "/swagger-ui/**", "/login","api-docs.html"
+    };
 
     @Autowired
     private UserPrincipalDetailsService userPrincipalDetailsService;
@@ -40,15 +44,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                /*.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)*/
                 .authorizeRequests()
-                .mvcMatchers("/login").permitAll()
+                .mvcMatchers(WHITELIST).permitAll()
                 .mvcMatchers("/users/**").hasAnyRole(Role.ADMIN.name())
                 .mvcMatchers("/groupes/**").hasRole(Role.ADMIN.name())
-                .anyRequest().authenticated()
-                .and().httpBasic();
+                .anyRequest().authenticated();
+
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 

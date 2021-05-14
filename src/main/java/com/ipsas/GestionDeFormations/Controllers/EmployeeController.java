@@ -3,6 +3,7 @@ package com.ipsas.GestionDeFormations.Controllers;
 import com.ipsas.GestionDeFormations.Models.Employee;
 import com.ipsas.GestionDeFormations.Services.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/employees")
 @Tag(name = "Employee Controller", description = "Full CRUD for Employee Model")
+@SecurityRequirement(name = "JwtAuthentication")
 public class EmployeeController {
 
     private final EmployeeService employeeService;

@@ -4,8 +4,11 @@ import com.ipsas.GestionDeFormations.Models.Admin;
 import com.ipsas.GestionDeFormations.Services.AdminService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@OpenAPIDefinition(info = @Info(title = "Gestion Formation",description = "Application de gestion pour un Center de formations",version = "1.1.0",contact = @Contact(name = "Skander Hadjkacem",email = "skander.hkacem@gmail.com")))
+
 @RestController
 @RequestMapping("/admins")
 @Tag(name = "Admin Controller", description = "Full CRUD for Admin Model")
+@SecurityRequirement(name = "JwtAuthentication")
 public class AdminController {
 
     private final AdminService adminService;

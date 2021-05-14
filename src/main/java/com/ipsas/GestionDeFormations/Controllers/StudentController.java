@@ -2,6 +2,8 @@ package com.ipsas.GestionDeFormations.Controllers;
 
 import com.ipsas.GestionDeFormations.Models.Student;
 import com.ipsas.GestionDeFormations.Services.StudentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/students")
 @Tag(name = "Student Conroller", description = "Full CRUD for Student Model")
+@SecurityRequirement(name = "JwtAuthentication")
 public class StudentController {
 
     private final StudentService studentService;
@@ -22,7 +25,8 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @Operation(security = @SecurityRequirement(name = "JwtAuthentication"))
+    @GetMapping("/")
     public ResponseEntity<List<Student>> index(){
         List<Student> l = studentService.findAll();
         return new ResponseEntity<>(l, HttpStatus.OK);

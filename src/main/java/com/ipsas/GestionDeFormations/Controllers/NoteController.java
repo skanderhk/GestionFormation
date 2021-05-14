@@ -3,6 +3,7 @@ package com.ipsas.GestionDeFormations.Controllers;
 import com.ipsas.GestionDeFormations.Models.Note;
 import com.ipsas.GestionDeFormations.Services.NoteService;
 import com.ipsas.GestionDeFormations.Services.StudentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/notes")
 @Tag(name = "Note Conroller", description = "Full CRUD for Note Model")
+@SecurityRequirement(name = "JwtAuthentication")
 public class NoteController {
 
     private final NoteService noteService;
@@ -23,7 +25,7 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<Note>> index(){
         List<Note> l = noteService.findAll();
         return new ResponseEntity<>(l, HttpStatus.OK);
